@@ -17,12 +17,12 @@ yarn-error.log*
 
 # Editor settings
 .vscode
-!/.vscode/launch.json
 *.swp
 *.swo
 *.swn
 *.bak
 *.orig
+!.vscode/launch.json
 
 
 # Ignore files under out folder
