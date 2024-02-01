@@ -22,3 +22,6 @@ yarn-error.log*
 *.swn
 *.bak
 *.orig
+
+# Ignore files under out folder
+out/
