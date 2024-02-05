@@ -2,17 +2,20 @@ import { getCoordinatesByCity } from "./getCoordinatesByCity.js";
 import { appId } from "./index.js";
 
 export type WeatherResponse = {
+    cityName: string;
     temperature: number;
+    tempUnit: string;
     weatherDescription: string;
+    language: string;
 }
 
 export type WeatherRequest = {
     cityName: string;
     unit: string;
-    language: string
+    language: string;
 }
+
 export async function getWeather(request: WeatherRequest): Promise<WeatherResponse> {
-//export async function getWeather(cityName: string, unit: string, language: string): Promise<WeatherResponse> {
     return new Promise(async (resolve, reject) => {
         const coords = await getCoordinatesByCity(request.cityName);
 
@@ -32,8 +35,11 @@ export async function getWeather(request: WeatherRequest): Promise<WeatherRespon
                 reject(new Error("City not found"));
             }
             const weather: WeatherResponse = {
+                cityName: request.cityName,
+                tempUnit: request.unit === "metric" ? "°C" : "°F",
                 weatherDescription: data.weather[0].description,
-                temperature: data.main.temp
+                temperature: data.main.temp,
+                language: request.language,
             };
 
             resolve(weather);
@@ -41,4 +47,17 @@ export async function getWeather(request: WeatherRequest): Promise<WeatherRespon
             reject(new Error(`API request failed with status code: ${response.status}:`));
         }
     });
+}
+
+export function weatherString(language: string): string {
+    switch (language) {
+        case "se":
+            return "Vädret i {cityName} är nu {temperature}{tempUnit} och {weatherDescription}.";
+        case "en":
+            return "The weather in {cityName} is currently {temperature}{tempUnit} and {weatherDescription}.";
+        case "es":
+            return "El clima en {cityName} es actualmente {temperature}{tempUnit} y {weatherDescription}.";
+        default:
+            return "The weather in {cityName} is currently {temperature}{tempUnit} and {weatherDescription}.";
+    }
 }

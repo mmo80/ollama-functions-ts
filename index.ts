@@ -1,22 +1,23 @@
 import { OllamaFunctions } from "langchain/experimental/chat_models/ollama_functions";
 import { HumanMessage } from "@langchain/core/messages";
 import dotenv from 'dotenv';
-import { getWeather, WeatherResponse } from "./getWeather.js";
+import { WeatherRequest, getWeather, weatherString } from "./getWeather.js";
+import { fillTemplate } from "./formatString.js";
 
 dotenv.config();
 export const appId = process.env.APPID;
+export const ollamaUrl = process.env.OLLAMA_URL;
 
 const startTime = Date.now();
 
-const model = new OllamaFunctions({
+const ollamaFunctions = new OllamaFunctions({
     temperature: 0.1,
-    model: "mistral",
-    baseUrl: "http://localhost:11434"
+    model: "mistral",//"mistral", //"llama-pro",
+    baseUrl: ollamaUrl
 }).bind({
-    functions: [
-        {
+    functions: [{
             name: "getWeather",
-            description: "Get the current weather for a given city name",
+            description: "Get the current weather for a given city name.", // Base the language by the user query and the temperature unit by the city country location.
             parameters: {
                 type: "object",
                 properties: {
@@ -24,8 +25,6 @@ const model = new OllamaFunctions({
                         type: "string",
                         description: "The city name, e.g. San Francisco, Göteborg or Stockholm",
                     },
-                    unit: { type: "string", enum: ["metric", "imperial"] },
-                    language: { type: "string", enum: ["se", "en"] },
                 },
                 required: ["cityName"],
             },
@@ -37,37 +36,45 @@ const model = new OllamaFunctions({
     },
 });
 
-const response = await model.invoke([
+let unit = "metric";
+let languageOutput = "se";
+let humanMessage = "Vad är det för väder i Göteborg?";
+//let humanMessage = "Whats the current weather like in New York?";
+//let humanMessage = "Que clima es en buenos aires ahora?";
+
+const response = await ollamaFunctions.invoke([
     new HumanMessage({
-        content: "Vad är det för väder i Göteborg?",
+        content: humanMessage,
     }),
 ]);
 
-let functionName:any = response.additional_kwargs.function_call?.name ?? "";
-let jsonStringArgs = response.additional_kwargs.function_call?.arguments ?? "";
-console.log(functionName);
+console.log(`Q: ${humanMessage}`);
+
+let functionName:string = response.additional_kwargs.function_call?.name ?? "";
+let jsonStringArgs:string = response.additional_kwargs.function_call?.arguments ?? "";
+//console.log(functionName);
 //console.log(jsonStringArgs);
 
 var params = JSON.parse(jsonStringArgs);
-console.log(params);
-
-
-console.log('------ RESULT ------');
+//console.log(params);
 
 switch (functionName) {
     case 'getWeather':
-        const data = await getWeather(params);
-        console.log(data);
+        let p:WeatherRequest = {
+            cityName: params.cityName,
+            unit: unit,
+            language: languageOutput
+        };
+        //console.log(p);
+        const r = await getWeather(p);
+        //console.log(r);
+
+        let msg = fillTemplate(weatherString(r.language), r);
+        console.log(`A: ${msg}`);
         break;
     default:
         console.error('Function does not exist');
 }
-
-// test getWeather
-//let functionNamee = 'getWeather';
-//let paramss = { cityName: 'Stockholm', unit: 'metric', language: 'se' };
-//const data = await getWeather(params);
-//console.log(data);
 
 const endTime = Date.now();
 const elapsedTime = (endTime - startTime) / 1000;
