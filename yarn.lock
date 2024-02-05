@@ -17,6 +17,18 @@
     node-fetch "^2.6.7"
     web-streams-polyfill "^3.2.1"
 
+"@langchain/community@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@langchain/community/-/community-0.0.26.tgz#9d311e3a2d73b2cde7d24d33ed903f4ccc52046d"
+  integrity sha512-E5/lltEkkRCxA9WQ/IpdTWUBj5gaCOYuf6r2MX4ZNTR5gfaZkHdLQWF1rew6uG3Z7XjRMMtIxxT9jS7me6sRRA==
+  dependencies:
+    "@langchain/core" "~0.1.16"
+    "@langchain/openai" "~0.0.10"
+    flat "^5.0.2"
+    langsmith "~0.0.48"
+    uuid "^9.0.0"
+    zod "^3.22.3"
+
 "@langchain/community@~0.0.20":
   version "0.0.24"
   resolved "https://registry.yarnpkg.com/@langchain/community/-/community-0.0.24.tgz#a0c07cc3310e5f17daf998c8cdc6dcd5adf95040"
