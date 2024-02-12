@@ -17,7 +17,7 @@ const ollamaFunctions = new OllamaFunctions({
 }).bind({
     functions: [{
             name: "getWeather",
-            description: "Get the current weather for a given city name.", // Base the language by the user query and the temperature unit by the city country location.
+            description: "Get the current weather for a given city name.",
             parameters: {
                 type: "object",
                 properties: {
@@ -40,7 +40,6 @@ let unit = "metric";
 let languageOutput = "se";
 let humanMessage = "Vad är det för väder i Göteborg?";
 //let humanMessage = "Whats the current weather like in New York?";
-//let humanMessage = "Que clima es en buenos aires ahora?";
 
 const response = await ollamaFunctions.invoke([
     new HumanMessage({
