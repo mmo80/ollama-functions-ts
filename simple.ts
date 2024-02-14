@@ -19,7 +19,9 @@ let params = "{cityName: 'Göteborg', tempUnit: '°C', weatherDescription: 'klar
 // let params = "{cityName: 'Buenos Aires', tempUnit: '°C', weatherDescription: 'cielo claro', temperature: 25.0, language: 'es'}";
 
 const stream = await ollamaAnswer.stream(
-    `Answer the question in the language in wich the question is asked in with only the answer for the question with the given json parameters without any explination or description. QUESTION:"${humanMessage}". JSON: "${params}".`
+    `Answer the question in the language in wich the question is asked and give only the answer 
+    for the question with the given json parameters without any explination or description. 
+    QUESTION:"${humanMessage}". JSON: "${params}".`
 );
 //  and without quotation marks
 // Only answer the question no explination or description is needed.

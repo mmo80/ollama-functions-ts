@@ -397,6 +397,13 @@ num-sort@^2.0.0:
   resolved "https://registry.yarnpkg.com/num-sort/-/num-sort-2.1.0.tgz#1cbb37aed071329fdf41151258bc011898577a9b"
   integrity sha512-1MQz1Ed8z2yckoBeSfkQHHO9K1yDRxxtotKSJ9yvcTUUxSvfvzEq5GwBrjjHEpMlq/k5gvXdmJ1SbYxWtpNoVg==
 
+ollama@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/ollama/-/ollama-0.4.6.tgz#f23e4dfb5464665fee9f4336d89826fb81190b1a"
+  integrity sha512-/Im2atcM9hAxOgEi7mc5pG2G+MeN4jFo1bubfCzAd8bZT6nQ3he5tr+jypGufau9+WQKY0MHhTajqKTNfnlZQA==
+  dependencies:
+    whatwg-fetch "^3.6.20"
+
 openai@^4.26.0:
   version "4.26.0"
   resolved "https://registry.yarnpkg.com/openai/-/openai-4.26.0.tgz#0363b9d390727705b89cd1b1ea8e38af2afd53b6"
@@ -484,6 +491,11 @@ webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
+
+whatwg-fetch@^3.6.20:
+  version "3.6.20"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.20.tgz#580ce6d791facec91d37c72890995a0b48d31c70"
+  integrity sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==
 
 whatwg-url@^5.0.0:
   version "5.0.0"
