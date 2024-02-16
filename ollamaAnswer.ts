@@ -1,5 +1,5 @@
 import { Ollama } from "@langchain/community/llms/ollama";
-import { ollamaUrl } from "./index.js";
+import { ollamaUrl } from "./langchain_ollamaFunctions.js";
 
 export async function ollamaAnswer(humanMessage:string, jsonObject:object): Promise<string> {
     const ollamaAnswer = new Ollama({
